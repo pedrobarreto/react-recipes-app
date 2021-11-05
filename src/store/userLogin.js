@@ -11,9 +11,6 @@ export const slice = createSlice({
     changeUser(state, { payload: { email, password } }) {
       return { ...state, isLogged: true, email, password };
     },
-    logout(state) {
-      return { ...state, isLogged: false, email: '', password: '' };
-    },
   },
 });
 

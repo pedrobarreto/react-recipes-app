@@ -2,15 +2,17 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
 
 function App() {
   return (
     <div className="meals">
-      <Switch>
-        <Route exact path="/" component={ Login } />
-
-      </Switch>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

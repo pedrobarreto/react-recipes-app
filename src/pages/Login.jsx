@@ -24,7 +24,7 @@ export default function Login() {
       email: localState.email,
     };
     localStorage.setItem('user', JSON.stringify(user));
-    dispatch(changeUser(localState.email));
+    dispatch(changeUser(localState));
   };
   const verify = () => {
     const { email, password } = localState;

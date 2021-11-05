@@ -56,3 +56,18 @@ describe('Inserção de valores nos inputs para habilitar botão', () => {
     expect(buttonLogin.disabled).toBe(false);
   });
 });
+describe('Com botão habilitado, verifica localStorage e path', () => {
+  test(('Ao clicar no botão habilitado, os inputs somem'), () => {
+    const { history } = renderWithRouter(<App />);
+    const inputEmail = screen.getByLabelText(/email/i);
+    const inputPassword = screen.getByLabelText(/password/i);
+    const buttonLogin = screen.getByRole('button', {
+      name: /entrar/i,
+    });
+    fireEvent.change(inputEmail, { target: { value: 'teste@email.com' } });
+    fireEvent.change(inputPassword, { target: { value: '1234567' } });
+    fireEvent.click(buttonLogin);
+    expect(inputEmail).not.toBeInTheDocument();
+    expect(inputPassword).not.toBeInTheDocument();
+  });
+});

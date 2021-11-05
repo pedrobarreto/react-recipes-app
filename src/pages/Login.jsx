@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
-import { changeUser } from '../store/userLogin';
+import { changeUser } from '../store/userSlice';
 
 export default function Login() {
   const [localState, setLocalState] = useState({

@@ -1,29 +1,27 @@
-import { fireEvent, screen } from '@testing-library/dom';
 import React from 'react';
+import { render, fireEvent, screen } from '../test-utils/test-utils';
 import App from '../App';
-// import Login from '../pages/Login';
-import renderWithRouter from '../services/renderWithRouter';
-
-// beforeEach(() => {
-//   renderWithRouter(<Login />);
-// });
+import Login from '../pages/Login';
 
 describe('Criação de elementos na tela', () => {
   test(('Verifica existencia dos inputs e botão'), () => {
-    const { history } = renderWithRouter(<App />);
-    const { location: { pathname } } = history;
+    render(<Login />);
+
     const inputEmail = screen.getByLabelText(/email/i);
     const inputPassword = screen.getByLabelText(/password/i);
     const buttonLogin = screen.getByRole('button', {
       name: /entrar/i,
     });
+
     expect(inputEmail).toBeInTheDocument();
     expect(inputPassword).toBeInTheDocument();
     expect(buttonLogin).toBeInTheDocument();
-    expect(pathname).toBe('/');
+    expect(window.location.pathname).toStrictEqual('/');
   });
+
   test('Botão inicia Desabilitado', () => {
-    renderWithRouter(<App />);
+    render(<Login />);
+
     const { disabled } = screen.getByRole('button', {
       name: /entrar/i,
     });
@@ -32,41 +30,53 @@ describe('Criação de elementos na tela', () => {
 });
 
 describe('Inserção de valores nos inputs para habilitar botão', () => {
-  beforeEach(() => renderWithRouter(<App />));
   test(('É possível inserir valores nos inputs'), () => {
+    render(<Login />);
+
     const inputEmail = screen.getByLabelText(/email/i);
     const inputPassword = screen.getByLabelText(/password/i);
     const { disabled } = screen.getByRole('button', {
       name: /entrar/i,
     });
+
     fireEvent.change(inputEmail, { target: { value: 'teste' } });
     fireEvent.change(inputPassword, { target: { value: '1234' } });
+
     expect(inputEmail.value).toBe('teste');
     expect(inputPassword.value).toBe('1234');
     expect(disabled).toBe(true);
   });
+
   test(('Com valores corretos o botão é habilitado'), () => {
+    render(<Login />);
+
     const inputEmail = screen.getByLabelText(/email/i);
     const inputPassword = screen.getByLabelText(/password/i);
     const buttonLogin = screen.getByRole('button', {
       name: /entrar/i,
     });
+
     fireEvent.change(inputEmail, { target: { value: 'teste@email.com' } });
     fireEvent.change(inputPassword, { target: { value: '1234567' } });
+
     expect(buttonLogin.disabled).toBe(false);
   });
 });
+
 describe('Com botão habilitado, verifica localStorage e path', () => {
   test(('Ao clicar no botão habilitado, os inputs somem'), () => {
-    const { history } = renderWithRouter(<App />);
+    render(<App />);
     const inputEmail = screen.getByLabelText(/email/i);
     const inputPassword = screen.getByLabelText(/password/i);
     const buttonLogin = screen.getByRole('button', {
       name: /entrar/i,
     });
+
     fireEvent.change(inputEmail, { target: { value: 'teste@email.com' } });
     fireEvent.change(inputPassword, { target: { value: '1234567' } });
     fireEvent.click(buttonLogin);
+
+    expect(window.location.pathname).toStrictEqual('/comidas');
     expect(inputEmail).not.toBeInTheDocument();
     expect(inputPassword).not.toBeInTheDocument();
   });

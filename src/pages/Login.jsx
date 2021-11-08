@@ -1,33 +1,32 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
+import InputGen from '../components/InputGen';
 import { changeUser } from '../store/userSlice';
 
 export default function Login() {
-  const [localState, setLocalState] = useState({
-    email: '',
-    password: '',
-  });
-  const { isLogged } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const handleChange = ({ target }) => {
-    const { name, value } = target;
-    setLocalState({
-      ...localState,
-      [name]: value,
-    });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { isLogged } = useSelector((state) => state.user);
+
+  // const handleChange = ({ target: { name, value } }) => {
+  //   setLocalState({
+  //     ...localState,
+  //     [name]: value,
+  //   });
+  // };
+
   const handleClick = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    const user = {
-      email: localState.email,
-    };
+    const user = { email };
     localStorage.setItem('user', JSON.stringify(user));
-    dispatch(changeUser(localState));
+    dispatch(changeUser(email));
   };
+
   const verify = () => {
-    const { email, password } = localState;
     const NUMBER_MIN_PASSWORD = 6;
     const re = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
     if (re.test(email) && password.length > NUMBER_MIN_PASSWORD) {
@@ -40,28 +39,14 @@ export default function Login() {
   return (
     <div>
       <div>
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={ localState.email }
-            onChange={ handleChange }
-            data-testid="email-input"
-          />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={ localState.password }
-            onChange={ handleChange }
-            data-testid="password-input"
-          />
-        </label>
+        <InputGen
+          config={ ['text', 'email', 'email-input', email, false,
+            ({ target: { value } }) => setEmail(value), 'Email', 'email-input'] }
+        />
+        <InputGen
+          config={ ['password', 'password', 'password-input', password, false,
+            ({ target: { value } }) => setPassword(value), 'Password', 'password-input'] }
+        />
         <div>
           <button
             type="button"

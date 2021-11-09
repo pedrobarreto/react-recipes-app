@@ -52,5 +52,9 @@ export default function Header({ searchRender = true }) {
 }
 
 Header.propTypes = {
-  searchRender: PropTypes.bool.isRequired,
+  searchRender: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  searchRender: true,
 };

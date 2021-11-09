@@ -5,17 +5,16 @@ import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-import MainMails from './pages/MainMails';
-import MainDrinks from './pages/MainDrinks';
+import Main from './pages/Main';
 
 function App() {
   return (
-    <div className="meals">
+    <div className="">
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route exact path="/comidas" component={ MainMails } />
-          <Route exact path="/bebidas" component={ MainDrinks } />
+          <Route exact path="/comidas" component={ Main } />
+          <Route exact path="/bebidas" component={ Main } />
           <Route exact path="/perfil" component={ Profile } />
         </Switch>
       </BrowserRouter>

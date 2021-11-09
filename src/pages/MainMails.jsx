@@ -5,8 +5,12 @@ import fetchApi from '../toTest/testSupport';
 
 export default function MainMails() {
   // Usado apenas para chamar a API e passar no teste
-  const { search, inputRadio, isClicked } = useSelector((state) => state.search);
-  fetchApi(isClicked, inputRadio, search, window.location.pathname);
+  // const { search = 'e', inputRadio, isClicked } = useSelector((state) => state.search);
+  const search = useSelector((state) => state.search);
+  if (search) {
+    fetchApi(search, window.location.pathname);
+  }
+  // fetchApi(isClicked, inputRadio, search, window.location.pathname);
   return (
     <div>
       <Header />

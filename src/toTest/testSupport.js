@@ -1,4 +1,4 @@
-export default function fetchApi(isClicked, inputRadio, search, path) {
+export default function fetchApi({ isClicked, inputRadio, search }, path) {
   if (path === '/comidas') {
     path = 'meal';
   } else if (path === '/bebidas') {

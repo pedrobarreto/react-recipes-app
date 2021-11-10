@@ -9,14 +9,15 @@ import { changeData } from '../store/dataSlice';
 export default function Main() {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
+  const { pathname } = window.location;
 
   useEffect(() => {
     async function fetchData(end, path) {
       const data = await fetchApi(end, path);
       dispatch(changeData(data));
     }
-    fetchData(search, window.location.pathname);
-  }, [search, dispatch]);
+    fetchData(search, pathname);
+  }, [search, dispatch, pathname]);
 
   return (
     <div>

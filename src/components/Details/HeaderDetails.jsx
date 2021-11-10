@@ -8,7 +8,6 @@ export default function HeaderDetails() {
   const [favorite, setFavorite] = React.useState(false);
   const { detail } = useSelector((state) => state);
   const key = Object.keys(detail)[0];
-  console.log(detail);
   const recipe = detail[key][0];
   const path = window.location.pathname.split('/')[1];
   let ref = null;
@@ -48,11 +47,13 @@ export default function HeaderDetails() {
           <button
             type="button"
             className="bg-transparent border-0"
+            data-testid="favorite-btn"
             onClick={ () => setFavorite(!favorite) }
+            src={ favorite ? 'blackHeartIcon' : 'whiteHeartIcon' }
+
           >
             <img
               src={ favorite ? blackHeartIcon : whiteHeartIcon }
-              data-testid="favorite-btn"
               alt="favorite icon"
             />
           </button>

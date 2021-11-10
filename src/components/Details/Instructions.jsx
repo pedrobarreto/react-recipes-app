@@ -2,12 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function Instructions() {
-  // const [favorite, setFavorite] = React.useState(false);
   const { detail } = useSelector((state) => state);
   const key = Object.keys(detail)[0];
   const recipe = detail[key][0];
-  const { strInstructions, strYoutube } = recipe;
-  const idYoutube = strYoutube ? strYoutube.split('v=')[1] : null;
+  const { strInstructions } = recipe;
   const ingredients = [];
   const measures = [];
   function addIngredientsAndMeasures() {
@@ -36,18 +34,6 @@ export default function Instructions() {
       <div>
         <p data-testid="instructions">{ strInstructions }</p>
       </div>
-      { strYoutube && (
-        <div>
-          <h1>Vídeo</h1>
-          <iframe
-            src={ `https://www.youtube.com/embed/${idYoutube}` }
-            title="video"
-            frameBorder="0"
-            allowFullScreen
-            data-testid="video"
-          />
-        </div>
-      )}
     </section>
   );
 }

@@ -13,10 +13,10 @@ export default function HeaderDetails() {
   let ref = null;
 
   if (path === 'comidas') {
-    ref = { strTitle: 'strMeal', strThumb: 'strMealThumb', strCategory: 'strCategory' };
+    ref = { strTitle: 'strMeal', strThumb: 'strMealThumb', strCateg: 'strCategory' };
   }
   if (path === 'bebidas') {
-    ref = { strTitle: 'strDrink', strThumb: 'strDrinkThumb', strCategory: 'strCategory' };
+    ref = { strTitle: 'strDrink', strThumb: 'strDrinkThumb', strCateg: 'strAlcoholic' };
   }
   return (
     <section>
@@ -31,7 +31,7 @@ export default function HeaderDetails() {
       <div className="d-flex">
         <div>
           <h2 data-testid="recipe-title">{ recipe[ref.strTitle] }</h2>
-          <h3 data-testid="recipe-category">{ recipe[ref.strCategory] }</h3>
+          <h3 data-testid="recipe-category">{ recipe[ref.strCateg] }</h3>
         </div>
         <div>
           <button

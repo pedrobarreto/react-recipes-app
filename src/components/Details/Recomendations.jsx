@@ -61,7 +61,7 @@ export default function Recomendations() {
           return (
             <div
               key={ idMeal }
-              className="w-50"
+              className="w-75"
               data-testid={ `${index}-recomendation-card` }
             >
               <img src={ item[strThumb] } alt={ item[strTitle] } />

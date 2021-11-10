@@ -6,36 +6,39 @@ export default function Recomendations() {
   const { detail } = useSelector((state) => state);
   const [isFetching, setIsFetching] = React.useState(false);
   const [recomendations, setRecomendations] = React.useState([]);
-  const key = Object.keys(detail)[0];
+  let key = Object.keys(detail)[0];
   const recipe = detail[key][0];
   const { strYoutube } = recipe;
   const idYoutube = strYoutube ? strYoutube.split('v=')[1] : null;
-  const path = window.location.pathname.split('/')[1];
+  let path = window.location.pathname.split('/')[1];
   let strTitle = null;
   let strThumb = null;
   if (path === 'comidas') {
-    strTitle = 'strMeal';
-    strThumb = 'strMealThumb';
-  }
-  if (path === 'bebidas') {
     strTitle = 'strDrink';
     strThumb = 'strDrinkThumb';
+    path = '/bebidas';
+    key = 'drinks';
+  }
+  if (path === 'bebidas') {
+    strTitle = 'strMeal';
+    strThumb = 'strMealThumb';
+    path = '/comidas';
+    key = 'meals';
   }
   const toApi = {
     inputRadio: 'name',
-    search: recipe[strTitle].replace(/\s/g, '_'),
+    search: '',
   };
-  console.log(toApi);
-  const pathname = `/${path}`;
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchApi(toApi, pathname);
+      const response = await fetchApi(toApi, path);
       setRecomendations(response[key]);
       setIsFetching(true);
     };
     fetchData();
   }, []);
   if (!isFetching) return <div>Loading...</div>;
+  console.log(recomendations);
   return (
     <div>
       { strYoutube && (
@@ -50,17 +53,19 @@ export default function Recomendations() {
           />
         </div>
       )}
-      { recomendations.map((item, index) => {
-        const { idMeal } = item;
-        const MAX_CARDS = 3;
-        if (index > MAX_CARDS) return null;
-        return (
-          <div key={ idMeal } data-testid={ `${index}-recomendation-card` }>
-            <img src={ strThumb } alt={ strTitle } />
-            <h2>{strTitle}</h2>
-          </div>
-        );
-      })}
+      <div className="d-flex w-50 horizontal-scroll">
+        { recomendations.map((item, index) => {
+          const { idMeal } = item;
+          const MAX_CARDS = 5;
+          if (index > MAX_CARDS) return null;
+          return (
+            <div key={ idMeal } data-testid={ `${index}-recomendation-card` }>
+              <img src={ strThumb } alt={ strTitle } />
+              <h2>{strTitle}</h2>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

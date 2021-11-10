@@ -7,6 +7,7 @@ import Instructions from '../components/Details/Instructions';
 import Recomendations from '../components/Details/Recomendations';
 import fetchDetails from '../services/fetchDetails';
 import { changeDetail } from '../store/detailSlice';
+import './css/recipeDetails.css';
 
 export default function RecipeDetails(props) {
   const [isFetching, setIsFetching] = React.useState(false);

@@ -1,10 +1,13 @@
 import React from 'react';
-import { Button, Card, CardGroup } from 'react-bootstrap';
+import { Card, CardGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 
+import '../styles/MainCard.css';
+
 function MainCards() {
   const data = useSelector((state) => state.data.data);
+  const selectedCategory = useSelector((state) => state.search.category.search);
   const history = useHistory();
   const MAX_SHOW_RECIPES = 12;
 
@@ -27,15 +30,21 @@ function MainCards() {
   }
 
   return (
-    value.length === 1
+    value.length === 1 && !selectedCategory
       ? <Redirect push to={ `/${path}/${value[0][ref.strId]}` } />
       : (
         <CardGroup>
           { value.map((recipe, index) => {
             if (index >= MAX_SHOW_RECIPES) return null;
             return (
-              <div data-testid={ `${index}-recipe-card` } key={ recipe[ref.strId] }>
-                <Card style={ { width: '18rem' } } data-testid={ `${index}-recipe-card` }>
+              <button
+                type="button"
+                className="invisible-btn"
+                data-testid={ `${index}-recipe-card` }
+                key={ recipe[ref.strId] }
+                onClick={ () => history.push(`/${path}/${recipe[ref.strId]}`) }
+              >
+                <Card style={ { width: '18rem' } }>
                   <Card.Img
                     variant="top"
                     src={ recipe[ref.strThumb] }
@@ -47,16 +56,9 @@ function MainCards() {
                     >
                       { recipe[ref.strTitle] }
                     </Card.Title>
-                    <Button
-                      variant="primary"
-                      value={ recipe[ref.strId] }
-                      onClick={ (e) => history.push(`/${path}/${e.target.value}`) }
-                    >
-                      Show Recipe
-                    </Button>
                   </Card.Body>
                 </Card>
-              </div>
+              </button>
             );
           })}
         </CardGroup>

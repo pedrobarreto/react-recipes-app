@@ -59,9 +59,13 @@ export default function Recomendations() {
           const MAX_CARDS = 5;
           if (index > MAX_CARDS) return null;
           return (
-            <div key={ idMeal } data-testid={ `${index}-recomendation-card` }>
-              <img src={ strThumb } alt={ strTitle } />
-              <h2>{strTitle}</h2>
+            <div
+              key={ idMeal }
+              className="w-50"
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img src={ item[strThumb] } alt={ item[strTitle] } />
+              <p data-testid={ `${index}-recomendation-title` }>{item[strTitle]}</p>
             </div>
           );
         })}

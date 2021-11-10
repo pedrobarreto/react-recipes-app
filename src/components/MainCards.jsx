@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Card, CardGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 
 function MainCards() {
   const data = useSelector((state) => state.data.data);
+  const history = useHistory();
   const MAX_SHOW_RECIPES = 12;
 
   if (!data) return <p>loading</p>;
@@ -12,8 +13,6 @@ function MainCards() {
   const value = Object.values(data)[0];
   const path = window.location.pathname.split('/')[1];
   let ref = null;
-
-  console.log(data, value);
 
   if (path === 'comidas') {
     ref = { strTitle: 'strMeal', strThumb: 'strMealThumb', strId: 'idMeal' };
@@ -48,7 +47,13 @@ function MainCards() {
                     >
                       { recipe[ref.strTitle] }
                     </Card.Title>
-                    <Button variant="primary">Show Recipe</Button>
+                    <Button
+                      variant="primary"
+                      value={ recipe[ref.strId] }
+                      onClick={ (e) => history.push(`/${path}/${e.target.value}`) }
+                    >
+                      Show Recipe
+                    </Button>
                   </Card.Body>
                 </Card>
               </div>

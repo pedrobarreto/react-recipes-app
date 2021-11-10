@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MainCards from '../components/MainCards';
 import fetchApi from '../services/fetchApi';
@@ -21,9 +22,12 @@ export default function Main() {
     <div>
       <Header />
       <div className="container">
-        <div className="row">
+        <div>
           <div className="d-flex flex-wrap">
             <MainCards />
+          </div>
+          <div>
+            <Footer />
           </div>
         </div>
       </div>

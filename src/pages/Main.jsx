@@ -13,6 +13,7 @@ export default function Main() {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
   const { pathname } = window.location;
+  const title = pathname === '/comidas' ? 'Comidas' : 'Bebidas';
 
   useEffect(() => {
     async function fetchData(end, path) {
@@ -36,7 +37,7 @@ export default function Main() {
   return (
     <div className="flex-column">
       <div className="d-flex flex-column container">
-        <Header />
+        <Header title={ title } />
         <Categories />
       </div>
       <div className="d-flex flex-wrap container">

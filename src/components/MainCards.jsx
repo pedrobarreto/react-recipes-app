@@ -19,8 +19,7 @@ function MainCards() {
 
   if (path === 'comidas') {
     ref = { strTitle: 'strMeal', strThumb: 'strMealThumb', strId: 'idMeal' };
-  }
-  if (path === 'bebidas') {
+  } else {
     ref = { strTitle: 'strDrink', strThumb: 'strDrinkThumb', strId: 'idDrink' };
   }
 
@@ -41,7 +40,7 @@ function MainCards() {
                 type="button"
                 className="invisible-btn"
                 data-testid={ `${index}-recipe-card` }
-                key={ recipe[ref.strId] }
+                key={ index }
                 onClick={ () => history.push(`/${path}/${recipe[ref.strId]}`) }
               >
                 <Card style={ { width: '18rem' } }>

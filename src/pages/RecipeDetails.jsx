@@ -9,6 +9,7 @@ import fetchDetails from '../services/fetchDetails';
 import { changeDetail } from '../store/detailSlice';
 import './css/recipeDetails.css';
 
+// pair programming Pedro e Murilo
 export default function RecipeDetails(props) {
   const [isFetching, setIsFetching] = React.useState(false);
 

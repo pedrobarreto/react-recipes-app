@@ -36,6 +36,8 @@ export default async function fetchApi(toSearch, path) {
     }
   case 'random':
     return fethEnd(`https://www.the${path}db.com/api/json/v1/1/random.php`);
+  case 'details':
+    return fethEnd(`https://www.the${path}db.com/api/json/v1/1/lookup.php?i=`, toSearch.details.search);
   default:
     return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?s=`);
   }

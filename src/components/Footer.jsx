@@ -3,7 +3,6 @@ import { useHistory } from 'react-router';
 import mealIcon from '../images/mealIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
-
 import '../styles/Footer.css';
 
 export default function Footer() {

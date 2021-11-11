@@ -10,6 +10,7 @@ import ExploreFoodsIngredients from './pages/ExploreFoodsIngredients';
 import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import Profile from './pages/Profile';
 import Main from './pages/Main';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Main } />
+          <Route exact path="/comidas/:id" component={ RecipeDetails } />
           <Route exact path="/bebidas" component={ Main } />
+          <Route exact path="/bebidas/:id" component={ RecipeDetails } />
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/bebidas" component={ ExploreFoodsOrDrinks } />
           <Route exact path="/explorar/comidas" component={ ExploreFoodsOrDrinks } />

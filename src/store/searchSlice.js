@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 export const slice = createSlice({
   name: 'search',
   initialState: {
-    search: '',
-    inputRadio: '',
-    isClicked: false,
+    type: '',
+    radio: { search: '', isClicked: false, radioType: '' },
+    category: { search: '', isClicked: false, categoryType: '' },
   },
   reducers: {
-    changeSearch(state, { payload: { search, inputRadio } }) {
-      return { ...state, isClicked: true, search, inputRadio };
+    changeSearch(state, { payload }) {
+      return { ...state, ...payload };
     },
   },
 });

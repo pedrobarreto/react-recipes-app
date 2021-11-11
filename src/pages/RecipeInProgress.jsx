@@ -33,7 +33,7 @@ export default function RecipeInProgress(props) {
   return (
     <div>
       <HeaderDetails />
-      <Instructions stepProgress="ingredient-step" />
+      <Instructions stepProgress="ingredient-step" progress />
       <ButtonRecipe testBtn="finish" />
     </div>
   );

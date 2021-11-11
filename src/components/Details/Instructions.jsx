@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-export default function Instructions({ stepProgress }) {
+export default function Instructions({ stepProgress, progress }) {
   const { detail } = useSelector((state) => state);
   const key = Object.keys(detail)[0];
   const recipe = detail[key][0];
@@ -21,14 +21,28 @@ export default function Instructions({ stepProgress }) {
     }
   }
   addIngredientsAndMeasures();
+  const forNormalRecipe = (ingredient, index) => (
+    <p data-testid={ `${index}-${stepProgress}` }>
+      {`${ingredient} - ${measures[index]}`}
+    </p>
+  );
+  const forProgressRecipe = (ingredient, index) => (
+    <div>
+      <label htmlFor={ index } data-testid={ `${index}-${stepProgress}` }>
+        <input type="checkbox" id={ index } />
+        {`${ingredient} - ${measures[index]}`}
+      </label>
+    </div>
+  );
+
   return (
     <section>
       <div>
         { ingredients.map((ingredient, index) => (
           <div key={ index } className="d-flex">
-            <p data-testid={ `${index}-${stepProgress}` }>
-              {`${ingredient} - ${measures[index]}`}
-            </p>
+            { progress
+              ? forProgressRecipe(ingredient, index)
+              : forNormalRecipe(ingredient, index) }
           </div>
         ))}
       </div>
@@ -40,5 +54,9 @@ export default function Instructions({ stepProgress }) {
 }
 
 Instructions.propTypes = {
+  progress: PropTypes.bool,
   stepProgress: PropTypes.string.isRequired,
+};
+Instructions.defaultProps = {
+  progress: false,
 };

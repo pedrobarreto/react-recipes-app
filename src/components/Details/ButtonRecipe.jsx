@@ -11,7 +11,7 @@ export default function ButtonRecipe({ testBtn, text }) {
     <div>
       <button
         type="button"
-        data-testid={`${testBtn}-recipe-btn`}
+        data-testid={ `${testBtn}-recipe-btn` }
         className="fixed-bottom"
         onClick={ () => setIsOpen(!isOpen) }
       >

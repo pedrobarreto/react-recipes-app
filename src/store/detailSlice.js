@@ -6,7 +6,7 @@ export const slice = createSlice({
   },
   reducers: {
     changeDetail(state, { payload }) {
-      return { ...state, ...payload };
+      return { ...payload };
     },
   },
 });

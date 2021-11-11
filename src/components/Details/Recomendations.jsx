@@ -38,7 +38,6 @@ export default function Recomendations() {
     fetchData();
   }, [key, path]);
   if (!isFetching) return <div>Loading...</div>;
-  console.log(recomendations);
   return (
     <div>
       { strYoutube && (

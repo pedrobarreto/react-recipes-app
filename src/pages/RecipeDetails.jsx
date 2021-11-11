@@ -19,8 +19,10 @@ export default function RecipeDetails(props) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchDetails(id, pathname);
-      dispatch(changeDetail(response));
-      setIsFetching(true);
+      if (response) {
+        dispatch(changeDetail(response));
+        setIsFetching(true);
+      }
     };
     fetchData();
   }, []);

@@ -25,18 +25,18 @@ export default function Recomendations() {
     path = '/comidas';
     key = 'meals';
   }
-  const toApi = {
-    inputRadio: 'name',
-    search: '',
-  };
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchApi(toApi, path);
+      const response = await fetchApi({
+        inputRadio: 'name',
+        search: '',
+      }, path);
       setRecomendations(response[key]);
       setIsFetching(true);
     };
     fetchData();
-  }, []);
+  }, [key, path]);
   if (!isFetching) return <div>Loading...</div>;
   console.log(recomendations);
   return (

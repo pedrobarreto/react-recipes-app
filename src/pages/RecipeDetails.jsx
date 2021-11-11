@@ -25,8 +25,7 @@ export default function RecipeDetails(props) {
       }
     };
     fetchData();
-  }, []);
-
+  }, [dispatch, id, pathname]);
   if (!isFetching) return <div>Loading...</div>;
   return (
     <div>

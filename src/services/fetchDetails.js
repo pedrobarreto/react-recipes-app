@@ -14,15 +14,4 @@ export default async function fetchDetails(id, path) {
     }
   };
   return fetchEnd(`https://www.the${path}db.com/api/json/v1/1/lookup.php?i=`);
-  // https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
-  // switch (inputRadio) {
-  // case 'name':
-  //   return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?s=`);
-  // case 'ingredient':
-  //   return fethEnd(`https://www.the${path}db.com/api/json/v1/1/filter.php?i=`);
-  // case 'first-letter':
-  //   return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?f=`);
-  // default:
-  //   return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?s=`);
-  // }
 }

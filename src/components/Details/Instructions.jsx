@@ -21,6 +21,7 @@ export default function Instructions({ stepProgress, progress }) {
     }
   }
   addIngredientsAndMeasures();
+  const handleChangeProgress = ({ target }) => target.parentNode.classList.toggle('done');
   const forNormalRecipe = (ingredient, index) => (
     <p data-testid={ `${index}-${stepProgress}` }>
       {`${ingredient} - ${measures[index]}`}
@@ -28,7 +29,11 @@ export default function Instructions({ stepProgress, progress }) {
   );
   const forProgressRecipe = (ingredient, index) => (
     <div>
-      <label htmlFor={ index } data-testid={ `${index}-${stepProgress}` }>
+      <label
+        htmlFor={ index }
+        data-testid={ `${index}-${stepProgress}` }
+        onChange={ handleChangeProgress }
+      >
         <input type="checkbox" id={ index } />
         {`${ingredient} - ${measures[index]}`}
       </label>
@@ -55,8 +60,9 @@ export default function Instructions({ stepProgress, progress }) {
 
 Instructions.propTypes = {
   progress: PropTypes.bool,
-  stepProgress: PropTypes.string.isRequired,
+  stepProgress: PropTypes.string,
 };
 Instructions.defaultProps = {
   progress: false,
+  stepProgress: 'ingredient-name-and-measure',
 };

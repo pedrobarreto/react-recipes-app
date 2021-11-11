@@ -31,13 +31,25 @@ export default function RecipeDetails(props) {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.favoriteRecipes = JSON.stringify([]);
     }
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.inProgressRecipes = JSON.stringify({ coocktails: {}, meals: {} });
+    }
     fetchData();
   }, [dispatch, id, pathname]);
   if (!isFetching) return <div>Loading...</div>;
+  if (pathname.includes('progress')) {
+    return (
+      <div>
+        <HeaderDetails />
+        <Instructions stepProgress="ingredient-step" progress />
+        <ButtonRecipe testBtn="finish" />
+      </div>
+    );
+  }
   return (
     <div>
       <HeaderDetails />
-      <Instructions stepProgress="ingredient-name-and-measure" />
+      <Instructions />
       <Recomendations />
       <ButtonRecipe />
     </div>

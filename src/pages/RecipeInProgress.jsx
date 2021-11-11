@@ -24,9 +24,6 @@ export default function RecipeInProgress(props) {
         setIsFetching(true);
       }
     };
-    if (!localStorage.getItem('favoriteRecipes')) {
-      localStorage.favoriteRecipes = JSON.stringify([]);
-    }
     fetchData();
   }, [dispatch, id, pathname]);
   if (!isFetching) return <div>Loading...</div>;

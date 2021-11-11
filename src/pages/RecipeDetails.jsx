@@ -10,7 +10,7 @@ import fetchApi from '../services/fetchApi';
 import { changeDetail } from '../store/detailSlice';
 import './css/recipeDetails.css';
 
-// pair programming Pedro e Murilo
+// pair programming Pedro e Mu rilo
 export default function RecipeDetails(props) {
   const [isFetching, setIsFetching] = React.useState(false);
 

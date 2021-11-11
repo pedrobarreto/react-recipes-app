@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+
 import ButtonRecipe from '../components/Details/ButtonRecipe';
 import HeaderDetails from '../components/Details/HeaderDetails';
 import Instructions from '../components/Details/Instructions';
 import Recomendations from '../components/Details/Recomendations';
-import fetchDetails from '../services/fetchDetails';
+import fetchApi from '../services/fetchApi';
 import { changeDetail } from '../store/detailSlice';
 import './css/recipeDetails.css';
 
@@ -13,13 +14,15 @@ import './css/recipeDetails.css';
 export default function RecipeDetails(props) {
   const [isFetching, setIsFetching] = React.useState(false);
 
-  const pathname = window.location.pathname.split('/')[1];
+  const { pathname } = window.location;
   const { match: { params: { id } } } = props;
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchDetails(id, pathname);
+      const response = await fetchApi(
+        { type: 'details', details: { search: id } }, pathname,
+      );
       if (response) {
         dispatch(changeDetail(response));
         setIsFetching(true);
@@ -44,7 +47,7 @@ export default function RecipeDetails(props) {
 RecipeDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };

@@ -24,7 +24,10 @@ export default function HeaderSearch() {
   const handleClick = () => {
     const alert = 'Sua busca deve conter somente 1 (um) caracter';
     if (inputRadio === 'first-letter' && search.length !== 1) return global.alert(alert);
-    dispatch(changeSearch({ search, inputRadio }));
+    dispatch(changeSearch({
+      type: 'radio',
+      radio: { search, isClicked: true, radioType: inputRadio },
+    }));
   };
   return (
     <div>

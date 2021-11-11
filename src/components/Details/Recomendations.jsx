@@ -54,12 +54,11 @@ export default function Recomendations() {
       )}
       <div className="d-flex w-50 horizontal-scroll">
         { recomendations.map((item, index) => {
-          const { idMeal } = item;
           const MAX_CARDS = 5;
           if (index > MAX_CARDS) return null;
           return (
             <div
-              key={ idMeal }
+              key={ index }
               className="w-75"
               data-testid={ `${index}-recomendation-card` }
             >

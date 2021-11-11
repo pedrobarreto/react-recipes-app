@@ -11,13 +11,6 @@ export default function Login() {
 
   const { isLogged } = useSelector((state) => state.user);
 
-  // const handleChange = ({ target: { name, value } }) => {
-  //   setLocalState({
-  //     ...localState,
-  //     [name]: value,
-  //   });
-  // };
-
   const handleClick = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);

@@ -5,14 +5,8 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import HeaderSearch from './HeaderSearch';
 
-export default function Header({ searchRender = true }) {
+export default function Header({ searchRender, title }) {
   const [clickSearch, setclickSearch] = useState(false);
-
-  const namePage = () => {
-    let { pathname } = window.location;
-    pathname = pathname.substring(1);
-    return pathname.charAt(0).toUpperCase() + pathname.slice(1);
-  };
 
   const searchButton = () => (
     <button
@@ -41,7 +35,7 @@ export default function Header({ searchRender = true }) {
           </Link>
         </div>
         <div>
-          <h1 data-testid="page-title">{ namePage() }</h1>
+          <h1 data-testid="page-title">{ title }</h1>
         </div>
         { searchRender
         && searchButton() }
@@ -53,6 +47,7 @@ export default function Header({ searchRender = true }) {
 
 Header.propTypes = {
   searchRender: PropTypes.bool,
+  title: PropTypes.string.isRequired,
 };
 
 Header.defaultProps = {

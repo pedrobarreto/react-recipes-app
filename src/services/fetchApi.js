@@ -1,12 +1,13 @@
 export default async function fetchApi(toSearch, path) {
-  if (path === '/comidas') {
+  if (path.includes('comidas')) {
     path = 'meal';
-  } else if (path === '/bebidas') {
+  } else if (path.includes('bebidas')) {
     path = 'cocktail';
   }
 
   const fethEnd = async (end, search = '') => {
     try {
+      console.log(`${end}${search}`);
       const response = await fetch(`${end}${search}`);
       const data = await response.json();
       return data;
@@ -21,9 +22,9 @@ export default async function fetchApi(toSearch, path) {
     case 'name':
       return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?s=`, toSearch.radio.search);
     case 'ingredient':
-      return fethEnd(`https://www.the${path}db.com/api/json/v1/1/filter.php?i=`);
+      return fethEnd(`https://www.the${path}db.com/api/json/v1/1/filter.php?i=`, toSearch.radio.search);
     case 'first-letter':
-      return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?f=`);
+      return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?f=`, toSearch.radio.search);
     default: return 'error';
     }
   case 'category':
@@ -33,6 +34,8 @@ export default async function fetchApi(toSearch, path) {
     default:
       return fethEnd(`https://www.the${path}db.com/api/json/v1/1/list.php?c=list`);
     }
+  case 'random':
+    return fethEnd(`https://www.the${path}db.com/api/json/v1/1/random.php`);
   default:
     return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?s=`);
   }

@@ -37,7 +37,7 @@ export default function RecipeDetails(props) {
   return (
     <div>
       <HeaderDetails />
-      <Instructions />
+      <Instructions stepProgress="ingredient-name-and-measure" />
       <Recomendations />
       <ButtonRecipe />
     </div>

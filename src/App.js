@@ -38,6 +38,7 @@ function App() {
           />
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+          <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
         </Switch>
       </BrowserRouter>
     </div>

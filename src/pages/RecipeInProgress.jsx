@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import ButtonRecipe from '../components/Details/ButtonRecipe';
 import HeaderDetails from '../components/Details/HeaderDetails';
 import Instructions from '../components/Details/Instructions';
-import Recomendations from '../components/Details/Recomendations';
 import fetchDetails from '../services/fetchDetails';
 import { changeDetail } from '../store/detailSlice';
 import './css/recipeDetails.css';
@@ -34,9 +33,8 @@ export default function RecipeInProgress(props) {
   return (
     <div>
       <HeaderDetails />
-      <Instructions />
-      <Recomendations />
-      <ButtonRecipe />
+      <Instructions stepProgress="ingredient-step" />
+      <ButtonRecipe testBtn="finish" />
     </div>
   );
 }

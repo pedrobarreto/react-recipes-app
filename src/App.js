@@ -6,8 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
 import Explore from './pages/Explore';
 import ExploreFoodsOrDrinks from './pages/ExploreFoodsOrDrinks';
-import ExploreFoodsIngredients from './pages/ExploreFoodsIngredients';
-import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
+import ExploreByIngredients from './pages/ExploreByIngredients';
 import Profile from './pages/Profile';
 import Main from './pages/Main';
 import RecipeDetails from './pages/RecipeDetails';
@@ -28,12 +27,12 @@ function App() {
           <Route
             exact
             path="/explorar/comidas/ingredientes"
-            component={ ExploreFoodsIngredients }
+            component={ ExploreByIngredients }
           />
           <Route
             exact
             path="/explorar/bebidas/ingredientes"
-            component={ ExploreDrinksIngredients }
+            component={ ExploreByIngredients }
           />
           <Route exact path="/perfil" component={ Profile } />
         </Switch>

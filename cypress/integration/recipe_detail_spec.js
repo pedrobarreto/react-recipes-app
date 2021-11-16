@@ -318,7 +318,6 @@ describe('40 - Implemente a solução de modo que caso a receita tenha sido inic
         win.fetch = fetchMock;
       },
     });
-
     cy.get('[data-testid="start-recipe-btn"]').contains('Continuar Receita');
   });
 });

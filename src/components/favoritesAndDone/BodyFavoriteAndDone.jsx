@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
@@ -6,11 +7,17 @@ import shareIcon from '../../images/shareIcon.svg';
 export default function BodyFavoriteAndDone() {
   const [favorite] = React.useState(true);
   const [clipboard, setClipboard] = React.useState(false);
+  const { filter } = useSelector((state) => state.filterFav);
   const [favoriteCards, setFavoriteCards] = React.useState([]);
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setFavoriteCards(favorites);
-  }, []);
+    if (filter === 'all') {
+      setFavoriteCards(favorites);
+    } else {
+      const filterFav = favorites.filter((fav) => fav.type === filter);
+      setFavoriteCards(filterFav);
+    }
+  }, [filter]);
   const handleClickFavorite = (itemObj) => {
     const allFavorites = favoriteCards.filter(
       (item) => item.id !== itemObj.id,

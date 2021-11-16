@@ -5,7 +5,7 @@ import { Redirect, useHistory } from 'react-router';
 
 import '../styles/MainCard.css';
 
-function MainCards() {
+export default function MainCards() {
   const data = useSelector((state) => state.data.data);
   const selectedCategory = useSelector((state) => state.search.category.search);
   const history = useHistory();
@@ -64,5 +64,3 @@ function MainCards() {
       )
   );
 }
-
-export default MainCards;

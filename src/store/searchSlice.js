@@ -4,8 +4,9 @@ export const slice = createSlice({
   name: 'search',
   initialState: {
     type: '',
-    radio: { search: '', isClicked: false, radioType: '' },
-    category: { search: '', isClicked: false, categoryType: '' },
+    radio: { search: '', radioType: '' },
+    category: { search: '', categoryType: '' },
+    ingredients: { search: '', ingredientsType: '' },
   },
   reducers: {
     changeSearch(state, { payload }) {

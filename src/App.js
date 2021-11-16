@@ -11,6 +11,8 @@ import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import Profile from './pages/Profile';
 import Main from './pages/Main';
 import RecipeDetails from './pages/RecipeDetails';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import SavedRecipes from './pages/SavedRecipes';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route exact path="/:type/:id" component={ RecipeDetails } />
           <Route exact path="/bebidas" component={ Main } />
           <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+          <Route exact path="/receitas-feitas" component={ SavedRecipes } />
           <Route exact path="/explorar/bebidas" component={ ExploreFoodsOrDrinks } />
           <Route exact path="/explorar/comidas" component={ ExploreFoodsOrDrinks } />
           <Route

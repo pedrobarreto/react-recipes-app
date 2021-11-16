@@ -4,6 +4,7 @@ import detailSlice from './detailSlice';
 // import { changeDetail } from './detailSlice';
 import searchSlice from './searchSlice';
 import userSlice from './userSlice';
+import checkSlice from './checkSlice';
 
 export default configureStore({
   reducer: {
@@ -11,5 +12,6 @@ export default configureStore({
     search: searchSlice,
     data: dataSlice,
     detail: detailSlice,
+    allChecked: checkSlice,
   },
 });

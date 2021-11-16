@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import ButtonRecipe from '../components/Details/ButtonRecipe';
 import HeaderDetails from '../components/Details/HeaderDetails';
 import Instructions from '../components/Details/Instructions';
+import InstructionsInProgress from '../components/Details/InstructionsInProgress';
 import Recomendations from '../components/Details/Recomendations';
 import fetchApi from '../services/fetchApi';
 import { changeDetail } from '../store/detailSlice';
 import './css/recipeDetails.css';
 
-// pair programming Pedro e Murilo
+// pair programming Pedro e Mu rilo
 export default function RecipeDetails(props) {
   const [isFetching, setIsFetching] = React.useState(false);
 
@@ -31,9 +31,24 @@ export default function RecipeDetails(props) {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.favoriteRecipes = JSON.stringify([]);
     }
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
+    }
     fetchData();
   }, [dispatch, id, pathname]);
   if (!isFetching) return <div>Loading...</div>;
+  if (pathname.includes('progress')) {
+    return (
+      <div>
+        <HeaderDetails />
+        <div className="instructions">
+          {/* <Instructions stepProgress="ingredient-step" progress /> */}
+          <InstructionsInProgress />
+        </div>
+        <ButtonRecipe testBtn="finish" />
+      </div>
+    );
+  }
   return (
     <div>
       <HeaderDetails />

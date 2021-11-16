@@ -7,7 +7,6 @@ export default async function fetchApi(toSearch, path) {
 
   const fethEnd = async (end, search = '') => {
     try {
-      console.log(`${end}${search}`);
       const response = await fetch(`${end}${search}`);
       const data = await response.json();
       return data;

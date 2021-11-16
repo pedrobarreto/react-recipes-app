@@ -8,7 +8,7 @@ import fetchDetails from '../services/fetchDetails';
 import { changeDetail } from '../store/detailSlice';
 import './css/recipeDetails.css';
 
-// pair programming Pedro e Murilo
+// pair programming Pedro, Murilo e Eduardo
 export default function RecipeInProgress(props) {
   const [isFetching, setIsFetching] = React.useState(false);
 

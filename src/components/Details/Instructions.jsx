@@ -21,16 +21,6 @@ export default function Instructions({ stepProgress, progress }) {
       }
     }
   }
-  // useEffect(() => {
-  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   const keyName = pathname.includes('comidas') ? 'meals' : 'coocktails';
-  //   const labels = inProgressRecipes[keyName][pathname.split('/')[2]];
-  //   if (labels) {
-  //     const parent = document.querySelector('.instructions');
-  //     console.log(parent);
-  //     parent.innerHTML = labels;
-  //   }
-  // }, [pathname]);
   const saveLocalStorage = () => {
     const localStorageObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (pathname.includes('comidas')) {

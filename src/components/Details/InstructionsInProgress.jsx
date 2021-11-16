@@ -6,7 +6,6 @@ import { changeCheck } from '../../store/checkSlice';
 export default function InstructionsInProgress() {
   const { detail } = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log(typeof reducer);
   const key = Object.keys(detail)[0];
   const { pathname } = window.location;
   const recipe = detail[key][0];
@@ -36,12 +35,9 @@ export default function InstructionsInProgress() {
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageObj));
   };
-  const handleChangeProgress = ({ target }, bool = true) => {
-    if (bool) {
-      target.parentNode.classList.toggle('done');
-    } else {
-      target.classList.toggle('done');
-    }
+  const handleChangeProgress = ({ target }) => {
+    target.parentNode.classList.toggle('done');
+
     const labels = document.querySelectorAll('label');
     const allChecks = [...labels].every((label) => label.firstElementChild.checked);
     dispatch(changeCheck(allChecks));
@@ -58,10 +54,9 @@ export default function InstructionsInProgress() {
       const labels = document.querySelectorAll('label');
       labels.forEach((label) => {
         if (label.classList.contains('done')) {
-          label.firstElementChild.checked = true;
-          console.log(label.firstElementChild.checked);
+          label.firstElementChild.setAttribute('checked', true);
         }
-        label.addEventListener('click', (e) => handleChangeProgress(e, false));
+        label.firstChild.addEventListener('click', (e) => handleChangeProgress(e));
       });
     }
     saveLocalStorage();

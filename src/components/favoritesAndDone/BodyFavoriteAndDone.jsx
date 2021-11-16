@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
@@ -33,18 +34,19 @@ export default function BodyFavoriteAndDone() {
           return (
             <div
               key={ index }
-              className="w-50"
             >
-              <img
-                src={ item.image }
-                alt={ item.id }
-                data-testid={ `${index}-horizontal-image` }
-              />
-              <p data-testid={ `${index}-horizontal-top-text` }>
-                {`${item[foodOrDrink]} - ${item.category}`}
-              </p>
-              <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
-              <p>{}</p>
+              <Link to={ `${item.type}s/${item.id}` }>
+                <img
+                  src={ item.image }
+                  alt={ item.id }
+                  className="w-25"
+                  data-testid={ `${index}-horizontal-image` }
+                />
+                <p data-testid={ `${index}-horizontal-top-text` }>
+                  {`${item[foodOrDrink]} - ${item.category}`}
+                </p>
+                <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
+              </Link>
               <div>
                 <button
                   type="button"

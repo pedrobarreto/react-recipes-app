@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-export default function Instructions() {
+export default function Instructions({ stepProgress, progress }) {
   const { detail } = useSelector((state) => state);
   const key = Object.keys(detail)[0];
+  const { pathname } = window.location;
   const recipe = detail[key][0];
   const { strInstructions } = recipe;
   const ingredients = [];
@@ -19,15 +21,54 @@ export default function Instructions() {
       }
     }
   }
+  const saveLocalStorage = () => {
+    const localStorageObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (pathname.includes('comidas')) {
+      const labels = document.querySelector('.all-ingredients');
+      localStorageObj.meals = {
+        ...localStorageObj.meals,
+        [pathname.split('/')[2]]: labels.innerHTML,
+      };
+    } else if (pathname.includes('bebidas')) {
+      const labels = document.querySelector('.all-ingredients');
+      localStorageObj.drinks = {
+        ...localStorageObj.drinks,
+        [pathname.split('/')[2]]: labels.innerHTML,
+      };
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageObj));
+  };
   addIngredientsAndMeasures();
+  const handleChangeProgress = ({ target }) => {
+    target.parentNode.classList.toggle('done');
+    saveLocalStorage();
+  };
+  const forNormalRecipe = (ingredient, index) => (
+    <p data-testid={ `${index}-${stepProgress}` } className="ingredients">
+      {`${ingredient} - ${measures[index]}`}
+    </p>
+  );
+  const forProgressRecipe = (ingredient, index) => (
+    <div>
+      <label
+        htmlFor={ index }
+        className="ingredient"
+        data-testid={ `${index}-${stepProgress}` }
+        onChange={ handleChangeProgress }
+      >
+        <input type="checkbox" id={ index } />
+        {`${ingredient} - ${measures[index]}`}
+      </label>
+    </div>
+  );
   return (
     <section>
-      <div>
+      <div className="all-ingredients">
         { ingredients.map((ingredient, index) => (
           <div key={ index } className="d-flex">
-            <p data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${ingredient} - ${measures[index]}`}
-            </p>
+            { progress
+              ? forProgressRecipe(ingredient, index)
+              : forNormalRecipe(ingredient, index) }
           </div>
         ))}
       </div>
@@ -38,4 +79,11 @@ export default function Instructions() {
   );
 }
 
-// <iframe width="747" height="420" src="https://www.youtube.com/embed/1IszT_guI08" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Instructions.propTypes = {
+  progress: PropTypes.bool,
+  stepProgress: PropTypes.string,
+};
+Instructions.defaultProps = {
+  progress: false,
+  stepProgress: 'ingredient-name-and-measure',
+};

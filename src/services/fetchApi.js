@@ -1,20 +1,19 @@
-const fethEnd = async (end, search = '') => {
-  try {
-    console.log(`${end}${search}`);
-    const response = await fetch(`${end}${search}`);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    return error.mensage;
-  }
-};
-
 export default async function fetchApi(toSearch, path) {
   if (path.includes('comidas')) {
     path = 'meal';
   } else if (path.includes('bebidas')) {
     path = 'cocktail';
   }
+
+  const fethEnd = async (end, search = '') => {
+    try {
+      const response = await fetch(`${end}${search}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return error.mensage;
+    }
+  };
 
   switch (toSearch.type) {
   case 'radio':

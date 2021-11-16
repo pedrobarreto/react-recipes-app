@@ -13,7 +13,7 @@ export default function HeaderDetails() {
   const path = window.location.pathname.split('/')[1];
   let ref = null;
   let localStorageObj = null;
-
+  const { pathname } = window.location;
   useEffect(() => {
     const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'))
       .some((item) => item.id === recipe.idMeal || item.id === recipe.idDrink);
@@ -74,15 +74,18 @@ export default function HeaderDetails() {
             type="button"
             className="bg-transparent border-0"
             id="liveToastBtn"
+            data-testid="share-btn"
             // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard - copy to clipboard
             onClick={ () => {
-              navigator.clipboard.writeText(`http://localhost:3000${window.location.pathname}`);
+              const link = pathname.includes('progress')
+                ? pathname.replace('/in-progress', '')
+                : pathname;
+              navigator.clipboard.writeText(`http://localhost:3000${link}`);
               setClipboard(true);
             } }
           >
             <img
               src={ shareIcon }
-              data-testid="share-btn"
               alt="share icon"
             />
           </button>

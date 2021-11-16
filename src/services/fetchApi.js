@@ -33,6 +33,15 @@ export default async function fetchApi(toSearch, path) {
     default:
       return fethEnd(`https://www.the${path}db.com/api/json/v1/1/list.php?c=list`);
     }
+  case 'ingredients':
+    switch (toSearch.ingredients.ingredientsType) {
+    case 'filter':
+      return fethEnd(`https://www.the${path}db.com/api/json/v1/1/filter.php?i=`, toSearch.ingredients.search);
+    case 'get':
+      return fethEnd(`https://www.the${path}db.com/api/json/v1/1/list.php?i=list`);
+    default:
+      return 'error';
+    }
   case 'random':
     return fethEnd(`https://www.the${path}db.com/api/json/v1/1/random.php`);
   case 'details':

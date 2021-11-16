@@ -28,7 +28,7 @@ export default function InstructionsInProgress() {
 
   const saveLocalStorage = () => {
     const localStorageObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const keyName = pathname.includes('comidas') ? 'meals' : 'coocktails';
+    const keyName = pathname.includes('comidas') ? 'meals' : 'cocktails';
     const labels = document.querySelector('.instructions');
     localStorageObj[keyName] = {
       ...localStorageObj[keyName],
@@ -50,7 +50,7 @@ export default function InstructionsInProgress() {
 
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const keyName = pathname.includes('comidas') ? 'meals' : 'coocktails';
+    const keyName = pathname.includes('comidas') ? 'meals' : 'cocktails';
     const ingredientsSaved = inProgressRecipes[keyName][pathname.split('/')[2]];
     if (ingredientsSaved) {
       const parent = document.querySelector('.instructions');

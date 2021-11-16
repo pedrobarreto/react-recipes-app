@@ -10,7 +10,7 @@ export default function ButtonRecipe({ testBtn }) {
   const { pathname } = window.location;
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const keyName = pathname.includes('comidas') ? 'meals' : 'coocktails';
+    const keyName = pathname.includes('comidas') ? 'meals' : 'cocktails';
     const ingredientsSaved = inProgressRecipes[keyName][pathname.split('/')[2]];
     if (ingredientsSaved) {
       setText('Continuar');
@@ -32,7 +32,7 @@ export default function ButtonRecipe({ testBtn }) {
           className="fixed-bottom"
           onClick={ handleClick }
         >
-          {`${text} Receita`}
+          {`${allCheck ? 'Finalizar' : text} Receita`}
         </button>
       </div>
     );

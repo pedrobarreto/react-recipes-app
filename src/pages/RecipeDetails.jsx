@@ -32,7 +32,7 @@ export default function RecipeDetails(props) {
       localStorage.favoriteRecipes = JSON.stringify([]);
     }
     if (!localStorage.getItem('inProgressRecipes')) {
-      localStorage.inProgressRecipes = JSON.stringify({ coocktails: {}, meals: {} });
+      localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
     }
     fetchData();
   }, [dispatch, id, pathname]);

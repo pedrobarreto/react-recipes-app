@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import ButtonRecipe from '../components/Details/ButtonRecipe';
 import HeaderDetails from '../components/Details/HeaderDetails';
 import Instructions from '../components/Details/Instructions';
+import InstructionsInProgress from '../components/Details/InstructionsInProgress';
 import Recomendations from '../components/Details/Recomendations';
 import fetchApi from '../services/fetchApi';
 import { changeDetail } from '../store/detailSlice';
@@ -41,7 +41,10 @@ export default function RecipeDetails(props) {
     return (
       <div>
         <HeaderDetails />
-        <Instructions stepProgress="ingredient-step" progress />
+        <div className="instructions">
+          {/* <Instructions stepProgress="ingredient-step" progress /> */}
+          <InstructionsInProgress />
+        </div>
         <ButtonRecipe testBtn="finish" />
       </div>
     );

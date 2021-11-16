@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 export default function Instructions({ stepProgress, progress }) {
   const { detail } = useSelector((state) => state);
   const key = Object.keys(detail)[0];
+  const { pathname } = window.location;
   const recipe = detail[key][0];
   const { strInstructions } = recipe;
   const ingredients = [];
@@ -20,10 +21,40 @@ export default function Instructions({ stepProgress, progress }) {
       }
     }
   }
+  // useEffect(() => {
+  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   const keyName = pathname.includes('comidas') ? 'meals' : 'coocktails';
+  //   const labels = inProgressRecipes[keyName][pathname.split('/')[2]];
+  //   if (labels) {
+  //     const parent = document.querySelector('.instructions');
+  //     console.log(parent);
+  //     parent.innerHTML = labels;
+  //   }
+  // }, [pathname]);
+  const saveLocalStorage = () => {
+    const localStorageObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (pathname.includes('comidas')) {
+      const labels = document.querySelector('.all-ingredients');
+      localStorageObj.meals = {
+        ...localStorageObj.meals,
+        [pathname.split('/')[2]]: labels.innerHTML,
+      };
+    } else if (pathname.includes('bebidas')) {
+      const labels = document.querySelector('.all-ingredients');
+      localStorageObj.drinks = {
+        ...localStorageObj.drinks,
+        [pathname.split('/')[2]]: labels.innerHTML,
+      };
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageObj));
+  };
   addIngredientsAndMeasures();
-  const handleChangeProgress = ({ target }) => target.parentNode.classList.toggle('done');
+  const handleChangeProgress = ({ target }) => {
+    target.parentNode.classList.toggle('done');
+    saveLocalStorage();
+  };
   const forNormalRecipe = (ingredient, index) => (
-    <p data-testid={ `${index}-${stepProgress}` }>
+    <p data-testid={ `${index}-${stepProgress}` } className="ingredients">
       {`${ingredient} - ${measures[index]}`}
     </p>
   );
@@ -31,6 +62,7 @@ export default function Instructions({ stepProgress, progress }) {
     <div>
       <label
         htmlFor={ index }
+        className="ingredient"
         data-testid={ `${index}-${stepProgress}` }
         onChange={ handleChangeProgress }
       >
@@ -39,10 +71,9 @@ export default function Instructions({ stepProgress, progress }) {
       </label>
     </div>
   );
-
   return (
     <section>
-      <div>
+      <div className="all-ingredients">
         { ingredients.map((ingredient, index) => (
           <div key={ index } className="d-flex">
             { progress

@@ -29,7 +29,9 @@ export default function BodyFavoriteAndDone() {
   return (
     <div>
       <div>
-        { favoriteCards.map((item, index) => {
+
+        { favoriteCards
+        && favoriteCards.map((item, index) => {
           const foodOrDrink = item.type === 'comida' ? 'area' : 'alcoholicOrNot';
           return (
             <div

@@ -4,6 +4,18 @@ import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
+const setTags = (tags) => {
+  let arrayTags = [];
+  if (tags) {
+    if (tags.includes(',')) {
+      arrayTags = tags.replace(/\s/g, '').split(',');
+    } else {
+      arrayTags.push(tags);
+    }
+  }
+  return arrayTags;
+};
+
 export default function HeaderDetails() {
   const [favorite, setFavorite] = React.useState(false);
   const [clipboard, setClipboard] = React.useState(false);
@@ -25,7 +37,7 @@ export default function HeaderDetails() {
       alcoholicOrNot: '',
       name: recipe.strMeal,
       image: recipe.strMealThumb };
-    actualRecipeObj = { ...localStorageObj, tags: recipe.strTags };
+    actualRecipeObj = { ...localStorageObj, tags: setTags(recipe.strTags) };
   }
   if (path === 'bebidas') {
     ref = { strTitle: 'strDrink', strThumb: 'strDrinkThumb', strCateg: 'strAlcoholic' };
@@ -36,7 +48,8 @@ export default function HeaderDetails() {
       alcoholicOrNot: recipe.strAlcoholic,
       name: recipe.strDrink,
       image: recipe.strDrinkThumb };
-    actualRecipeObj = { ...localStorageObj, tags: recipe.strTags };
+
+    actualRecipeObj = { ...localStorageObj, tags: setTags(recipe.strTags) };
   }
   useEffect(() => {
     const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'))
@@ -84,7 +97,7 @@ export default function HeaderDetails() {
               const link = pathname.includes('progress')
                 ? pathname.replace('/in-progress', '')
                 : pathname;
-              navigator.clipboard.writeText(`http://localhost:3000${link}`);
+              window.navigator.clipboard.writeText(`http://localhost:3000${link}`);
               setClipboard(true);
             } }
           >

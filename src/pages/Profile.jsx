@@ -11,7 +11,9 @@ export default function Profile() {
       </div>
       <section>
         <h3 data-testid="profile-email">
-          {JSON.parse(localStorage.getItem('user')).email}
+          { localStorage.getItem('user')
+      && JSON.parse(localStorage.getItem('user')).email}
+
         </h3>
         <Link to="/receitas-feitas">
           <button

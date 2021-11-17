@@ -7,9 +7,11 @@ import shareIcon from '../../images/shareIcon.svg';
 
 export default function BodyFavoriteAndDone() {
   const [favorite] = React.useState(true);
+  const [done, setDone] = React.useState(false);
   const [clipboard, setClipboard] = React.useState(false);
   const { filter } = useSelector((state) => state.filterFav);
   const [favoriteCards, setFavoriteCards] = React.useState([]);
+  const { pathname } = window.location;
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (filter === 'all') {
@@ -17,6 +19,9 @@ export default function BodyFavoriteAndDone() {
     } else {
       const filterFav = favorites.filter((fav) => fav.type === filter);
       setFavoriteCards(filterFav);
+    }
+    if (pathname.includes('feitas')) {
+      setDone(true);
     }
   }, [filter]);
   const handleClickFavorite = (itemObj) => {
@@ -26,6 +31,20 @@ export default function BodyFavoriteAndDone() {
     localStorage.setItem('favoriteRecipes', JSON.stringify(allFavorites));
     setFavoriteCards(allFavorites);
   };
+  const favoriteButton = (index, item) => (
+    <button
+      type="button"
+      className="bg-transparent border-0"
+      data-testid={ `${index}-horizontal-favorite-btn` }
+      onClick={ () => handleClickFavorite(item) }
+      src={ favorite ? 'blackHeartIcon' : 'whiteHeartIcon' }
+    >
+      <img
+        src={ favorite ? blackHeartIcon : whiteHeartIcon }
+        alt="favorite icon"
+      />
+    </button>
+  );
   return (
     <div>
       <div>
@@ -66,19 +85,7 @@ export default function BodyFavoriteAndDone() {
                     alt="share icon"
                   />
                 </button>
-                <button
-                  type="button"
-                  className="bg-transparent border-0"
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  onClick={ () => handleClickFavorite(item) }
-                  src={ favorite ? 'blackHeartIcon' : 'whiteHeartIcon' }
-
-                >
-                  <img
-                    src={ favorite ? blackHeartIcon : whiteHeartIcon }
-                    alt="favorite icon"
-                  />
-                </button>
+                { !done && favoriteButton(index, item) }
                 { clipboard && <p>Link copiado!</p> }
               </div>
             </div>

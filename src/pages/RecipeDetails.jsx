@@ -34,6 +34,9 @@ export default function RecipeDetails(props) {
     if (!localStorage.getItem('inProgressRecipes')) {
       localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
     }
+    if (!localStorage.getItem('doneRecipes')) {
+      localStorage.doneRecipes = JSON.stringify([]);
+    }
     fetchData();
   }, [dispatch, id, pathname]);
   if (!isFetching) return <div>Loading...</div>;

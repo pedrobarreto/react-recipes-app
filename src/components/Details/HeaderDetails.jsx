@@ -13,12 +13,8 @@ export default function HeaderDetails() {
   const path = window.location.pathname.split('/')[1];
   let ref = null;
   let localStorageObj = null;
+  let actualRecipeObj = null;
   const { pathname } = window.location;
-  useEffect(() => {
-    const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'))
-      .some((item) => item.id === recipe.idMeal || item.id === recipe.idDrink);
-    setFavorite(isFavorite);
-  }, [recipe]);
   if (path === 'comidas') {
     ref = { strTitle: 'strMeal', strThumb: 'strMealThumb', strCateg: 'strCategory' };
 
@@ -29,6 +25,7 @@ export default function HeaderDetails() {
       alcoholicOrNot: '',
       name: recipe.strMeal,
       image: recipe.strMealThumb };
+    actualRecipeObj = { ...localStorageObj, tags: recipe.strTags };
   }
   if (path === 'bebidas') {
     ref = { strTitle: 'strDrink', strThumb: 'strDrinkThumb', strCateg: 'strAlcoholic' };
@@ -39,7 +36,14 @@ export default function HeaderDetails() {
       alcoholicOrNot: recipe.strAlcoholic,
       name: recipe.strDrink,
       image: recipe.strDrinkThumb };
+    actualRecipeObj = { ...localStorageObj, tags: recipe.strTags };
   }
+  useEffect(() => {
+    const isFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .some((item) => item.id === recipe.idMeal || item.id === recipe.idDrink);
+    setFavorite(isFavorite);
+    localStorage.setItem('actualRecipe', JSON.stringify(actualRecipeObj));
+  }, [recipe, actualRecipeObj]);
   const handleClickFavorite = () => {
     setFavorite(!favorite);
     if (!favorite) {
@@ -105,28 +109,6 @@ export default function HeaderDetails() {
           { clipboard && <p>Link copiado!</p> }
         </div>
       </div>
-      {/* <div className="position-fixed bottom-0 end-0 p-3" style={ { zIndex: 122 } }>
-        <div
-          id="liveToast"
-          className="toast"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div className="toast-header">
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="toast"
-              aria-label="Close"
-            />
-          </div>
-          <div className="toast-body">
-            Link copiado!
-            { console.log('teste') }
-          </div>
-        </div>
-      </div> */}
     </section>
   );
 }

@@ -72,7 +72,7 @@ describe('Done recipes screen', () => {
         .should('have.attr', 'src')
         .should('include', 'shareIcon');
       cy.get('[data-testid="0-horizontal-done-date"]').contains('23/06/2020');
-      // cy.get('[data-testid="0-Pasta-horizontal-tag"]').contains(doneRecipes[0].tags[0]);
+      cy.get('[data-testid="0-Pasta-horizontal-tag"]').contains(doneRecipes[0].tags[0]);
       cy.get('[data-testid="0-Curry-horizontal-tag"]').contains(doneRecipes[0].tags[1]);
     });
   });

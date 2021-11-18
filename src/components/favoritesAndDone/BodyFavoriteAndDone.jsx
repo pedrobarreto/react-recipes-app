@@ -4,34 +4,58 @@ import { Link } from 'react-router-dom';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
+import TagsAndDate from './TagsAndDate';
+
+const setKeyName = (pathname) => (pathname.includes('favoritas')
+  ? 'favoriteRecipes'
+  : 'doneRecipes');
 
 export default function BodyFavoriteAndDone() {
   const [favorite] = React.useState(true);
+  const [done, setDone] = React.useState(false);
   const [clipboard, setClipboard] = React.useState(false);
   const { filter } = useSelector((state) => state.filterFav);
-  const [favoriteCards, setFavoriteCards] = React.useState([]);
+  const [cards, setCards] = React.useState([]);
+  const { pathname } = window.location;
+  const keyName = setKeyName(pathname);
   useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favorites = JSON.parse(localStorage.getItem(keyName));
     if (filter === 'all') {
-      setFavoriteCards(favorites);
+      setCards(favorites);
     } else {
       const filterFav = favorites.filter((fav) => fav.type === filter);
-      setFavoriteCards(filterFav);
+      setCards(filterFav);
     }
-  }, [filter]);
+    if (pathname.includes('feitas')) {
+      setDone(true);
+    }
+  }, [filter, pathname, keyName]);
   const handleClickFavorite = (itemObj) => {
-    const allFavorites = favoriteCards.filter(
+    const allFavorites = cards.filter(
       (item) => item.id !== itemObj.id,
     );
-    localStorage.setItem('favoriteRecipes', JSON.stringify(allFavorites));
-    setFavoriteCards(allFavorites);
+    localStorage.setItem(keyName, JSON.stringify(allFavorites));
+    setCards(allFavorites);
   };
+  const favoriteButton = (index, item) => (
+    <button
+      type="button"
+      className="bg-transparent border-0"
+      data-testid={ `${index}-horizontal-favorite-btn` }
+      onClick={ () => handleClickFavorite(item) }
+      src={ favorite ? 'blackHeartIcon' : 'whiteHeartIcon' }
+    >
+      <img
+        src={ favorite ? blackHeartIcon : whiteHeartIcon }
+        alt="favorite icon"
+      />
+    </button>
+  );
   return (
     <div>
       <div>
-
-        { favoriteCards
-        && favoriteCards.map((item, index) => {
+        { cards
+        && cards.map((item, index) => {
           const foodOrDrink = item.type === 'comida' ? 'area' : 'alcoholicOrNot';
           return (
             <div
@@ -56,7 +80,7 @@ export default function BodyFavoriteAndDone() {
                   id="liveToastBtn"
                   data-testid={ `${index}-horizontal-share-btn` }
                   onClick={ () => {
-                    navigator.clipboard.writeText(`http://localhost:3000/${item.type}s/${item.id}`);
+                    window.navigator.clipboard.writeText(`http://localhost:3000/${item.type}s/${item.id}`);
                     setClipboard(true);
                   } }
                   src={ shareIcon }
@@ -66,21 +90,10 @@ export default function BodyFavoriteAndDone() {
                     alt="share icon"
                   />
                 </button>
-                <button
-                  type="button"
-                  className="bg-transparent border-0"
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  onClick={ () => handleClickFavorite(item) }
-                  src={ favorite ? 'blackHeartIcon' : 'whiteHeartIcon' }
-
-                >
-                  <img
-                    src={ favorite ? blackHeartIcon : whiteHeartIcon }
-                    alt="favorite icon"
-                  />
-                </button>
+                { !done && favoriteButton(index, item) }
                 { clipboard && <p>Link copiado!</p> }
               </div>
+              { done && <TagsAndDate props={ { item, index } } />}
             </div>
           );
         })}

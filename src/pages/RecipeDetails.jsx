@@ -10,7 +10,7 @@ import fetchApi from '../services/fetchApi';
 import { changeDetail } from '../store/detailSlice';
 import './css/recipeDetails.css';
 
-// pair programming Pedro e Mu rilo
+// pair programming Pedro  e Mu rilo
 export default function RecipeDetails(props) {
   const [isFetching, setIsFetching] = React.useState(false);
 
@@ -33,6 +33,9 @@ export default function RecipeDetails(props) {
     }
     if (!localStorage.getItem('inProgressRecipes')) {
       localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
+    }
+    if (!localStorage.getItem('doneRecipes')) {
+      localStorage.doneRecipes = JSON.stringify([]);
     }
     fetchData();
   }, [dispatch, id, pathname]);

@@ -7,7 +7,6 @@ import fetchApi from '../services/fetchApi';
 export default function ExploreFoodsOrDrinks() {
   const { pathname } = window.location;
   const history = useHistory();
-
   let ref = null;
 
   if (pathname === '/explorar/comidas') {

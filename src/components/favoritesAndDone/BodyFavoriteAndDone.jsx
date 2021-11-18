@@ -80,7 +80,7 @@ export default function BodyFavoriteAndDone() {
                   id="liveToastBtn"
                   data-testid={ `${index}-horizontal-share-btn` }
                   onClick={ () => {
-                    window.navigator.clipboard.writeText(`http://localhost:3000/${item.type}s/${item.id}`);
+                    navigator.clipboard.writeText(`http://localhost:3000/${item.type}s/${item.id}`);
                     setClipboard(true);
                   } }
                   src={ shareIcon }

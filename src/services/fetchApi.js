@@ -1,10 +1,5 @@
 export default async function fetchApi(toSearch, path) {
-  if (path.includes('comidas')) {
-    path = 'meal';
-  } else if (path.includes('bebidas')) {
-    path = 'cocktail';
-  }
-
+  path = path.includes('comida') ? 'meal' : 'cocktail';
   const fethEnd = async (end, search = '') => {
     try {
       const response = await fetch(`${end}${search}`);
@@ -14,7 +9,6 @@ export default async function fetchApi(toSearch, path) {
       return error.mensage;
     }
   };
-
   switch (toSearch.type) {
   case 'radio':
     switch (toSearch.radio.radioType) {
@@ -30,6 +24,8 @@ export default async function fetchApi(toSearch, path) {
     switch (toSearch.category.categoryType) {
     case 'filter':
       return fethEnd(`https://www.the${path}db.com/api/json/v1/1/filter.php?c=`, toSearch.category.search);
+    case 'area':
+      return fethEnd(`https://www.the${path}db.com/api/json/v1/1/list.php?a=list`);
     default:
       return fethEnd(`https://www.the${path}db.com/api/json/v1/1/list.php?c=list`);
     }
@@ -46,6 +42,8 @@ export default async function fetchApi(toSearch, path) {
     return fethEnd(`https://www.the${path}db.com/api/json/v1/1/random.php`);
   case 'details':
     return fethEnd(`https://www.the${path}db.com/api/json/v1/1/lookup.php?i=`, toSearch.details.search);
+  case 'getByArea':
+    return fethEnd(`https://www.the${path}db.com/api/json/v1/1/filter.php?a=`, toSearch.getByArea.search);
   default:
     return fethEnd(`https://www.the${path}db.com/api/json/v1/1/search.php?s=`);
   }

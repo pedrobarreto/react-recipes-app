@@ -7,6 +7,7 @@ export const slice = createSlice({
     radio: { search: '', radioType: '' },
     category: { search: '', categoryType: '' },
     ingredients: { search: '', ingredientsType: '' },
+    area: 'All',
   },
   reducers: {
     changeSearch(state, { payload }) {

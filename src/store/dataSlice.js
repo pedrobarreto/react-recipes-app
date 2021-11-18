@@ -5,6 +5,8 @@ export const slice = createSlice({
   initialState: {
     data: undefined,
     categories: undefined,
+    area: undefined,
+    areaData: undefined,
   },
   reducers: {
     changeData(state, { payload }) {
@@ -13,9 +15,15 @@ export const slice = createSlice({
     changeCategories(state, { payload }) {
       return { ...state, categories: payload };
     },
+    changeArea(state, { payload }) {
+      return { ...state, area: payload };
+    },
+    changeFoodArea(state, { payload }) {
+      return { ...state, areaData: payload };
+    },
   },
 });
 
-export const { changeData, changeCategories } = slice.actions;
+export const { changeData, changeCategories, changeArea, changeFoodArea } = slice.actions;
 
 export default slice.reducer;

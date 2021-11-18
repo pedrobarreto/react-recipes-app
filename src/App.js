@@ -11,6 +11,8 @@ import Profile from './pages/Profile';
 import Main from './pages/Main';
 import RecipeDetails from './pages/RecipeDetails';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import ExploreByArea from './pages/ExploreByArea';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
           <Route exact path="/bebidas/:id/in-progress" component={ RecipeDetails } />
           <Route exact path="/explorar/bebidas" component={ ExploreFoodsOrDrinks } />
           <Route exact path="/explorar/comidas" component={ ExploreFoodsOrDrinks } />
+          <Route exact path="/explorar/comidas/area" component={ ExploreByArea } />
+          <Route path component={ NotFound } />
         </Switch>
       </BrowserRouter>
     </div>

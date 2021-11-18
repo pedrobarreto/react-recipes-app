@@ -15,7 +15,6 @@ function Categories() {
   const MAX_CATEGORIES = 5;
 
   function handleClick({ target: { value } }) {
-    console.log(value, selectedCategory);
     if (selectedCategory === value || value === 'All') {
       return dispatch(changeSearch({ type: '', category: { search: '' } }));
     }

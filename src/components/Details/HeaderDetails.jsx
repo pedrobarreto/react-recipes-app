@@ -97,7 +97,7 @@ export default function HeaderDetails() {
               const link = pathname.includes('progress')
                 ? pathname.replace('/in-progress', '')
                 : pathname;
-              window.navigator.clipboard.writeText(`http://localhost:3000${link}`);
+              navigator.clipboard.writeText(`http://localhost:3000${link}`);
               setClipboard(true);
             } }
           >

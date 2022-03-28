@@ -38,3 +38,6 @@ pull-request-para-branch-do-grupo.png
 only-all-green.png
 describe-only.png
 .stylelintrc.json
+.stylelintignore
+.eslintrc.json
+.eslintignore

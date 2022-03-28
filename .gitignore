@@ -19,7 +19,7 @@
 .env.production.local
 
 npm-debug.log*
-yarn-debug.log*
+yarn-debug.log* 
 yarn-error.log*
 
 .vscode
@@ -30,3 +30,6 @@ cypress/videos/
 cypress/reports
 /.github
 /.trybe
+/cypress
+trybe.yml
+reporter.json

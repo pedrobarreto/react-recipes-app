@@ -33,3 +33,7 @@ cypress/reports
 /cypress
 trybe.yml
 reporter.json
+cypress.json
+pull-request-para-branch-do-grupo.png
+only-all-green.png
+describe-only.png
